@@ -1,4 +1,5 @@
 import uuid
+import random
 from users.models import CustomUser
 from django.db import models
 from django.utils import timezone
@@ -7,7 +8,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 class Device(models.Model):
     name = models.CharField(max_length=50, verbose_name="Nome")
     location = models.CharField(max_length=100, verbose_name="Localização")
-    sn = models.CharField(max_length=12, unique=True, verbose_name="Número de série")
+    sn = models.CharField(max_length=12, unique=True, editable=False, verbose_name="Número de série")
     description = models.TextField(blank=True)
     user = models.ForeignKey(
         CustomUser,
@@ -28,6 +29,17 @@ class Device(models.Model):
     def __str__(self):
         return f"Dispositivo: {self.name}"
     
+    def generate_unique_sn(self):
+        while True:
+            sn = str(random.randint(10**11, 10**12 - 1))
+            if not Device.objects.filter(sn=sn).exists():
+                return sn
+
+    def save(self, *args, **kwargs):
+        if not self.sn:
+            self.sn = self.generate_unique_sn()
+        super().save(*args, **kwargs)
+    
 
 
 class Telemetry(models.Model):
@@ -46,8 +58,7 @@ class Telemetry(models.Model):
     hd_space_remaining = models.DecimalField(
         max_digits=5,
         decimal_places=2,
-        validators=[MinValueValidator(0), MaxValueValidator(100)],
-        help_text="Valor percentual entre 0 e 100."
+        help_text="Valor em GB."
     )
     temperature = models.FloatField(null=True, blank=True)
     latency = models.FloatField(
@@ -72,4 +83,4 @@ class Telemetry(models.Model):
         verbose_name_plural = "Telemetrias"
 
     def __str__(self):
-        return f"{self.device.name} - {self.timestamp}"
+        return f"{self.device.name}"

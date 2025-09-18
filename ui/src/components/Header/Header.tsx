@@ -1,19 +1,11 @@
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShield, faUser } from "@fortawesome/free-solid-svg-icons";
-import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
-import {
-  styledBrand,
-  styledBtnLogin,
-  styledHeader,
-  styledIcon,
-} from "./HeaderStyled.tsx";
-import { useContext } from "react";
-import { UserContext } from "../../context/UserContext/UserContext";
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShield } from '@fortawesome/free-solid-svg-icons';
+import { AppBar, Toolbar, Typography, Box } from '@mui/material';
+import { styledBrand, styledHeader, styledIcon } from './HeaderStyled.tsx';
+import HeaderMenu from '../Menu/Menu.tsx';
 
 function Header() {
-  const { login, userLogout } = useContext(UserContext);
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={styledHeader}>
@@ -26,22 +18,7 @@ function Header() {
               </Typography>
             </Link>
           </Box>
-          {login ? (
-            <Button
-              startIcon={<FontAwesomeIcon icon={faUser} />}
-              sx={styledBtnLogin}
-              onClick={userLogout}
-            >
-              Sair
-            </Button>
-          ) : (
-            <Button
-              startIcon={<FontAwesomeIcon icon={faUser} />}
-              sx={styledBtnLogin}
-            >
-              Entrar
-            </Button>
-          )}
+          <HeaderMenu />
         </Toolbar>
       </AppBar>
     </Box>
