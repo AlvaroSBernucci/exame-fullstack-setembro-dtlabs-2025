@@ -1,14 +1,14 @@
-import axios from "axios";
+import axios from 'axios';
 import type {
   AxiosError,
   InternalAxiosRequestConfig,
   AxiosRequestHeaders,
-} from "axios";
+} from 'axios';
 
-import { getToken, clearToken } from "./auth";
+import { getToken, clearToken } from './auth';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_HOST || "http://127.0.0.1:8000",
+  baseURL: import.meta.env.VITE_API_HOST || 'http://localhost:8000',
 });
 
 api.interceptors.request.use(
@@ -34,7 +34,7 @@ api.interceptors.response.use(
   (error: AxiosError) => {
     if (error.response?.status === 401) {
       clearToken();
-      window.location.href = "/login";
+      window.location.href = '/login';
     }
     return Promise.reject(error);
   }

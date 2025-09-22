@@ -7,6 +7,8 @@ import Header from './components/Header/Header';
 import HomePage from './pages/HomePage/HomePage';
 import DevicesRegisterPage from './pages/DevicesRegisterPage/DevicesRegisterPage';
 import { ToastContainer } from 'react-toastify';
+import DeviceDataPage from './pages/DeviceDataPage/DeviceDataPage';
+import NotificationsPage from './pages/NotificationsPage/NotificationsPage';
 
 function App() {
   return (
@@ -22,7 +24,6 @@ function App() {
             element={
               <PrivateRoute>
                 <HomePage />
-                <DevicesRegisterPage />
               </PrivateRoute>
             }
           />
@@ -31,6 +32,22 @@ function App() {
             element={
               <PrivateRoute>
                 <DevicesRegisterPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/device-data"
+            element={
+              <PrivateRoute>
+                <DeviceDataPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/notifications"
+            element={
+              <PrivateRoute>
+                <NotificationsPage />
               </PrivateRoute>
             }
           />
