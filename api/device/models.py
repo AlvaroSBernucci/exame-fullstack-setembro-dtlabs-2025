@@ -5,6 +5,9 @@ from django.db import models
 from django.utils import timezone
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+
+
+
 class Device(models.Model):
     name = models.CharField(max_length=50, verbose_name="Nome")
     location = models.CharField(max_length=100, verbose_name="Localização")
@@ -77,6 +80,8 @@ class Telemetry(models.Model):
     )
 
     device = models.ForeignKey(Device, to_field="uuid", on_delete=models.CASCADE, related_name="telemetries")
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 
     class Meta:
         verbose_name = "Telemetria"
@@ -84,3 +89,5 @@ class Telemetry(models.Model):
 
     def __str__(self):
         return f"{self.device.name}"
+
+

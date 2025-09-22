@@ -7,4 +7,6 @@ router.register("devices", views.DeviceView, basename="devices")
 router.register("telemetry", views.TelemetryView, basename="telemetry")
 
 
+
+
 urlpatterns = router.urls

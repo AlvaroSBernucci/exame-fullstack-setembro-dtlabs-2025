@@ -16,7 +16,7 @@ class CustomUserMeView(APIView):
         try:
             user = request.user
             data = {
-                "id": user.id,
+                "uuid": user.uuid,
                 "username": user.username,
                 "email": user.email
             }

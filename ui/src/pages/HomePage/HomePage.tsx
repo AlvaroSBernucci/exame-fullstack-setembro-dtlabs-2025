@@ -3,7 +3,7 @@ import { Grid, Typography, Card } from '@mui/material';
 import type { DeviceListInterface } from './HomePage.types';
 
 function HomePage() {
-  const { data: devices } = useAxios<DeviceListInterface[]>('api/v1/devices/');
+  const { data: devices } = useAxios<DeviceListInterface[]>(`api/v1/devices/`);
 
   return (
     <Grid>

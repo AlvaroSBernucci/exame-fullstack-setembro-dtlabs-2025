@@ -1,11 +1,11 @@
-import React, { createContext, useEffect } from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { api } from "../../utils/axios";
-import { toast } from "react-toastify";
-import { getToken } from "../../utils/auth";
-import { clearToken } from "../../utils/auth";
-import type { UserContextInterface } from "./UserContext.types";
+import React, { createContext, useEffect } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { api } from '../../utils/axios';
+import { toast } from 'react-toastify';
+import { getToken } from '../../utils/auth';
+import { clearToken } from '../../utils/auth';
+import type { UserContextInterface } from './UserContext.types';
 
 const userContextInitialValues = {
   userLogin: async () => {},
@@ -27,9 +27,9 @@ export const UserStorage = ({ children }: React.PropsWithChildren) => {
   const fetchUserData = async () => {
     setLoading(true);
     try {
-      const resp = await api.get("/api/v1/accounts/me/");
-      localStorage.setItem("id", resp.data.id);
-      localStorage.setItem("username", resp.data.username);
+      const resp = await api.get('/api/v1/accounts/me/');
+      localStorage.setItem('uuid', resp.data.uuid);
+      localStorage.setItem('username', resp.data.username);
       setUserData(resp.data);
       setLogin(true);
     } catch (err) {
@@ -42,14 +42,14 @@ export const UserStorage = ({ children }: React.PropsWithChildren) => {
 
   const userLogin = async (values: object) => {
     try {
-      const response = await api.post("/api/token/", values);
-      localStorage.setItem("token", response.data.access);
-      toast.success("Login realizado com sucesso!");
+      const response = await api.post('/api/token/', values);
+      localStorage.setItem('token', response.data.access);
+      toast.success('Login realizado com sucesso!');
       await fetchUserData();
-      navigate("/home");
+      navigate('/home');
     } catch (error) {
       console.error(error);
-      toast.error("Usuário ou senha inválidos");
+      toast.error('Usuário ou senha inválidos');
     }
   };
 

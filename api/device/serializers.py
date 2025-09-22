@@ -3,16 +3,17 @@ from .models import Device, Telemetry
 
 
 class TelemetrySerializer(serializers.ModelSerializer):
+    device_name = serializers.CharField(source="device.name")
+
     class Meta:
         model = Telemetry
-        fields = "__all__"
+        fields = ["device_name", "cpu_usage" , "ram_usage", "hd_space_remaining", "temperature", "latency", "is_connected", "boot_time", "device", "created_at", "updated_at"]
 
 
 class DeviceSerializer(serializers.ModelSerializer):
     created_at = serializers.DateTimeField(format="%d/%m/%Y - %H:%M", read_only=True)
     updated_at = serializers.DateTimeField(format="%d/%m/%Y - %H:%M", read_only=True)
     last_telemetry = serializers.SerializerMethodField()
-
 
     class Meta:
         model = Device
@@ -29,3 +30,4 @@ class DeviceSerializer(serializers.ModelSerializer):
                 "temperature": round(telemetry.temperature, 2) if telemetry.temperature is not None else None
             }
         return None
+

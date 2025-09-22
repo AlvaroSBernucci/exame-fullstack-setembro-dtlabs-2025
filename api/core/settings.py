@@ -27,10 +27,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Third-Party Packages.
     'rest_framework',
+    'django_filters',
     'corsheaders',
     # Application.
     'device',
     'users',
+    'notification',
 ]
 
 
@@ -106,6 +108,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 
 SIMPLE_JWT = {
