@@ -1,0 +1,28 @@
+services:
+  app:
+    build: ./api
+    container_name: app
+    ports:
+      - "8000:8000"
+    environment:
+      - API_USER=admin2
+      - API_PASS=admin123
+      - ALLOWED_HOSTS=localhost,app
+      - SECRET_KEY=django-insecure-1234567890abcdef
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 5s
+      retries: 5
+      timeout: 2s
+
+  telemetria:
+    build: ./telemetria
+    container_name: telemetria
+    environment:
+      - API_URL=http://app:8000/api/v1/telemetry/
+      - DEVICES_URL=http://app:8000/api/v1/devices/
+      - LOGIN_URL=http://app:8000/api/token/
+      - SECRET_KEY=django-insecure-1234567890abcdef
+      - API_USER=admin2
+      - API_PASS=admin123
+      - INTERVAL=60
