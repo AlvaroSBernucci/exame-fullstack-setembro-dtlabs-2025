@@ -50,6 +50,7 @@ The easiest way to run the entire system is using Docker. It will start:
 - cd exame-fullstack-setembro-dtlabs-2025
 
 ### 2. Start all services:
+- docker-compose run --rm app python manage.py migrate
 - docker-compose up --build
 
 ### 3. Accessing the Application:
