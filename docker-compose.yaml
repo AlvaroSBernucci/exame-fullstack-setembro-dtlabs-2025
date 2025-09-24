@@ -2,14 +2,18 @@ services:
   app:
     build: ./api
     container_name: app
+    working_dir: /code
     command: daphne -b 0.0.0.0 -p 8000 core.asgi:application
+    volumes:
+    - ./api:/code 
     ports:
       - "8000:8000"
     environment:
-      - API_USER=admin2
-      - API_PASS=admin123
+      - API_USER=admin
+      - API_PASS=admin
       - ALLOWED_HOSTS=localhost,app
       - SECRET_KEY=django-insecure-1234567890abcdef
+      - DJANGO_SETTINGS_MODULE=core.settings 
     depends_on:
       - redis
     healthcheck:
@@ -17,6 +21,19 @@ services:
       interval: 5s
       retries: 5
       timeout: 2s
+    
+  ui:
+    image: node:20
+    container_name: ui
+    working_dir: /app
+    volumes:
+      - ./ui:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    command: sh -c "npm ci && npm run dev -- --host 0.0.0.0 --port 3000"
+    depends_on:
+      - app
 
   redis:
     image: redis:7

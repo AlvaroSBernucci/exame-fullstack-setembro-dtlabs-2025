@@ -1,13 +1,9 @@
 FROM python:3.11-slim
 
-# Diretório de trablho
 WORKDIR /telemetria
 
-# Copia o sender
 COPY telemetry_sender.py .
 
-# Instala dependências
-RUN pip install requests django
+RUN pip install --no-cache-dir requests
 
-# Executa o sender
 CMD ["python", "telemetry_sender.py"]

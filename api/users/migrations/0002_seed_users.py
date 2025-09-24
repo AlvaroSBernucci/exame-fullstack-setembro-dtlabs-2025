@@ -5,8 +5,16 @@ import uuid
 def create_users(apps, schema_editor):
     User = get_user_model()
 
-    # Usuários de teste
     users = [
+        {
+            'username': 'admin',
+            'first_name': 'Admin',
+            'last_name': 'User1',
+            'email': 'admin@example.com',
+            'is_superuser': True,
+            'is_staff': True,
+            'password': 'admin', 
+        },
         {
             'username': 'admin2',
             'first_name': 'Admin2',
