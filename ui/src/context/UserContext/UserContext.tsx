@@ -56,6 +56,7 @@ export const UserStorage = ({ children }: React.PropsWithChildren) => {
   const userLogout = () => {
     setLogin(false);
     clearToken();
+    navigate('/');
   };
 
   useEffect(() => {

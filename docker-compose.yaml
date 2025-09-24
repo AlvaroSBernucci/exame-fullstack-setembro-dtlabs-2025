@@ -2,6 +2,7 @@ services:
   app:
     build: ./api
     container_name: app
+    command: daphne -b 0.0.0.0 -p 8000 core.asgi:application
     ports:
       - "8000:8000"
     environment:
@@ -9,11 +10,19 @@ services:
       - API_PASS=admin123
       - ALLOWED_HOSTS=localhost,app
       - SECRET_KEY=django-insecure-1234567890abcdef
+    depends_on:
+      - redis
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/"]
       interval: 5s
       retries: 5
       timeout: 2s
+
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
 
   telemetria:
     build: ./telemetria
@@ -23,6 +32,8 @@ services:
       - DEVICES_URL=http://app:8000/api/v1/devices/
       - LOGIN_URL=http://app:8000/api/token/
       - SECRET_KEY=django-insecure-1234567890abcdef
-      - API_USER=admin2
-      - API_PASS=admin123
+      - API_USER=admin
+      - API_PASS=admin
       - INTERVAL=60
+    depends_on:
+      - app

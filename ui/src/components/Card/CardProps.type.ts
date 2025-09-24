@@ -7,6 +7,7 @@ export interface DeviceCardProps {
   updated_at?: string;
   description?: string;
   telemetry?: TelemetryCardProps;
+  home?: boolean;
   onUpdate?: (signal: AbortSignal) => Promise<void>;
 }
 

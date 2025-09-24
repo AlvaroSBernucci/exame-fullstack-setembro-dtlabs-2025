@@ -7,8 +7,8 @@ from datetime import datetime, timezone
 API_URL = os.getenv('API_URL', 'http://app:8000/api/v1/telemetry/')
 DEVICES_URL = os.getenv('DEVICES_URL', 'http://app:8000/api/v1/devices/')
 LOGIN_URL = os.getenv('LOGIN_URL', 'http://app:8000/api/token/')
-USERNAME = os.getenv('API_USER', 'seu_usuario')
-PASSWORD = os.getenv('API_PASS', 'sua_senha')
+USERNAME = os.getenv('API_USER')
+PASSWORD = os.getenv('API_PASS')
 INTERVAL = int(os.getenv('INTERVAL', 60))
 
 while True:
@@ -46,7 +46,6 @@ while True:
             'device_name': device['name']
         }
 
-        print(f"[INFO] Postando heartbeat para {device['name']}: {heartbeat}")
         try:
             r = requests.post(API_URL, json=heartbeat, headers=HEADERS)
             if r.status_code != 201:

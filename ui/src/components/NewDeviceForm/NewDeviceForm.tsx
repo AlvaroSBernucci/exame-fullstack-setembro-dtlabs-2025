@@ -9,7 +9,7 @@ import type {
   NewDeviceFormProps,
 } from './NewDeviceForm.types';
 
-function NewDeviceForm({ onClose }: NewDeviceFormProps) {
+function NewDeviceForm({ setOpenConfirm }: NewDeviceFormProps) {
   const navigate = useNavigate();
 
   const handleCreate = async (values: DeviceValuesInterface) => {
@@ -18,7 +18,7 @@ function NewDeviceForm({ onClose }: NewDeviceFormProps) {
       console.log(resp);
       console.log(values);
       toast.success('Dispositivo atualizado com sucesso!');
-      onClose(false);
+      setOpenConfirm(false);
       navigate('/devices');
     } catch (err: unknown) {
       if (err instanceof AxiosError) {
@@ -92,7 +92,7 @@ function NewDeviceForm({ onClose }: NewDeviceFormProps) {
                       color: 'black',
                     }}
                     onClick={() => {
-                      console.log('teste');
+                      setOpenConfirm(false);
                     }}
                   >
                     Cancelar

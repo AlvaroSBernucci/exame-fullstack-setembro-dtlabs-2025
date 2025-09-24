@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { UserStorage } from './context/UserContext/UserContext';
 import LoginPage from './pages/LoginPage/LoginPage';
 import PrivateRoute from './components/PrivateRoute';
@@ -10,48 +10,58 @@ import { ToastContainer } from 'react-toastify';
 import DeviceDataPage from './pages/DeviceDataPage/DeviceDataPage';
 import NotificationsPage from './pages/NotificationsPage/NotificationsPage';
 
+function AppContent() {
+  const location = useLocation();
+  const hideHeader = location.pathname === '/';
+
+  return (
+    <>
+      {!hideHeader && <Header />}
+      <ToastContainer />
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route
+          path="/home"
+          element={
+            <PrivateRoute>
+              <HomePage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/devices"
+          element={
+            <PrivateRoute>
+              <DevicesRegisterPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/device-data"
+          element={
+            <PrivateRoute>
+              <DeviceDataPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/notifications"
+          element={
+            <PrivateRoute>
+              <NotificationsPage />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
+    </>
+  );
+}
+
 function App() {
   return (
     <BrowserRouter>
       <UserStorage>
-        <Header />
-        <ToastContainer />
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route
-            path="/home"
-            element={
-              <PrivateRoute>
-                <HomePage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/devices"
-            element={
-              <PrivateRoute>
-                <DevicesRegisterPage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/device-data"
-            element={
-              <PrivateRoute>
-                <DeviceDataPage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/notifications"
-            element={
-              <PrivateRoute>
-                <NotificationsPage />
-              </PrivateRoute>
-            }
-          />
-        </Routes>
+        <AppContent />
       </UserStorage>
     </BrowserRouter>
   );

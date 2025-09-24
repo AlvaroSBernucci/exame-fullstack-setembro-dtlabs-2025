@@ -5,6 +5,7 @@ from users.models import CustomUser
 PARAM_CHOICES = [
     ('cpu_usage', 'CPU Usage'),
     ('ram_usage', 'RAM Usage'),
+    ('hd_space_remaining', 'HD Space remaining'),
     ('temperature', 'Temperature'),
     ('latency', 'Latency'),
 ]

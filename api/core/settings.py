@@ -33,8 +33,18 @@ INSTALLED_APPS = [
     'device',
     'users',
     'notification',
+    'channels'
 ]
 
+ASGI_APPLICATION = 'myproject.asgi.application'
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("redis", 6379)],
+        },
+    },
+}
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",

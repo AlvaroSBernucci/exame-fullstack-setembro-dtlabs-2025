@@ -4,5 +4,5 @@ export interface DeviceValuesInterface {
   description?: string;
 }
 export interface NewDeviceFormProps {
-  onClose: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenConfirm: React.Dispatch<React.SetStateAction<boolean>>;
 }

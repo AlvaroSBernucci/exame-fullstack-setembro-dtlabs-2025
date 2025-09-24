@@ -15,15 +15,17 @@ function DevicesRegisterPage() {
     console.log(devices);
   }, [devices]);
   return (
-    <Grid>
-      <Typography variant="h1" fontSize={24}>
-        Gerenciamento de Dispositivos
-      </Typography>
-      <Button onClick={() => setOpenConfirm(true)}>
-        Adicionar Dispositivo
-      </Button>
+    <Grid mx={20} my={5}>
+      <Grid container justifyContent="space-between" mb={8}>
+        <Typography variant="h1" fontSize={30} fontWeight={700}>
+          Gerenciamento de Dispositivos
+        </Typography>
+        <Button onClick={() => setOpenConfirm(true)} variant="contained">
+          Adicionar Dispositivo
+        </Button>
+      </Grid>
       <Dialog open={openConfirm} onClose={() => setOpenConfirm(false)}>
-        <NewDeviceForm onClose={setOpenConfirm} />
+        <NewDeviceForm setOpenConfirm={setOpenConfirm} />
       </Dialog>
 
       <Grid

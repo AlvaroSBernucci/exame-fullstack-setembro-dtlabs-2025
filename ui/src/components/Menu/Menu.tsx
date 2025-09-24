@@ -49,14 +49,24 @@ export default function HeaderMenu() {
       >
         {login ? (
           <div>
-            <Link to="/profile" style={{ textDecoration: 'none' }}>
+            <Link to="/home" style={{ textDecoration: 'none' }}>
               <MenuItem onClick={handleClose} sx={styledBtnLogin}>
-                Profile
+                Home
               </MenuItem>
             </Link>
             <Link to="/devices" style={{ textDecoration: 'none' }}>
               <MenuItem onClick={handleClose} sx={styledBtnLogin}>
                 Dispositivos (config)
+              </MenuItem>
+            </Link>
+            <Link to="/device-data" style={{ textDecoration: 'none' }}>
+              <MenuItem onClick={handleClose} sx={styledBtnLogin}>
+                Dados dos dispositivos
+              </MenuItem>
+            </Link>
+            <Link to="/notifications" style={{ textDecoration: 'none' }}>
+              <MenuItem onClick={handleClose} sx={styledBtnLogin}>
+                Notificações
               </MenuItem>
             </Link>
 

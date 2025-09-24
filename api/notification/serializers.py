@@ -1,17 +1,29 @@
 from rest_framework import serializers
 from .models import NotificationConfig, Notification
+from device.models import Device
+
 
 class NotificationConfigSerializer(serializers.ModelSerializer):
+    devices = serializers.SlugRelatedField(
+        queryset=Device.objects.all(),
+        slug_field='uuid', 
+        many=True,
+        required=False
+    )
     devices_name = serializers.SlugRelatedField(
         source="devices",
         many=True,
         read_only=True,
         slug_field="name"
     )
+    user = serializers.RelatedField(
+        source="custom_user",
+        read_only=True
+    )
 
     class Meta:
         model = NotificationConfig
-        fields = ["id","name", "user", "parameter", "comparison", "threshold", "message", "devices_name"]
+        fields = ["id","name", "user", "parameter", "comparison", "threshold", "message", "devices", "devices_name"]
 
 class NotificationSerializer(serializers.ModelSerializer):
     device_name = serializers.CharField(source="device.name")
